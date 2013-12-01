@@ -2632,8 +2632,6 @@ int set_reg(struct script_state* st, TBL_PC* sd, int64 num, const char* name, co
 				idx = 0;
 			else
 				idx = data.u.num;
-			if( is_string_variable(name) )
-			   ShowDebug("set_reg:Running on %s, %lld - %lld - %lld\n",name,idx,((int64)(num & 0xFFFFFFFF)),(int64)((num >> 32) & 0xFFFFFFFF));
 			if( idx < ((int64)((num >> 32) & 0xFFFFFFFF))+1 ) {
 				if( is_string_variable(name) ) {
 					char val[11];
@@ -2646,11 +2644,6 @@ int set_reg(struct script_state* st, TBL_PC* sd, int64 num, const char* name, co
 			/* if is string -> str = (const char * value), str == NULL || *str == 0 -> empty */
 			/* if int, val = (int)__64BPTRSIZE(value), val == 0 -> empty */
 	   }
-	} else {//DEBUG, dump on live
-		if( is_string_variable(name)  )
-			ShowDebug("Setting %s(%d)[%d] = %s\n",name,(int32)(int64)(num & 0xFFFFFFFF),(int32)(int64)((num >> 32) & 0xFFFFFFFF),(const char *)__64BPTRSIZE(value));
-		else
-			ShowDebug("Setting %s(%d)[%d] = %d\n",name,(int32)(int64)(num & 0xFFFFFFFF),(int32)(int64)((num >> 32) & 0xFFFFFFFF),(int)__64BPTRSIZE(value));
 	}
 	
 	if( is_string_variable(name) ) {// string variable
